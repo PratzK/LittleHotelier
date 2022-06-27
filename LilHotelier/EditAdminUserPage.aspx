@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script>
         $(document).ready(function () {
-            $(".table").prepend($("<thead></thead>").append($(this).find("tr.first"))).datatable();
+            $("#<%=AdminUserInfoTable.ClientID%>").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable();
         });
     </script>
     

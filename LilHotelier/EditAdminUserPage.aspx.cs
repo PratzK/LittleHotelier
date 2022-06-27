@@ -17,7 +17,7 @@ namespace LilHotelier
         {
 
         }
-        //Add New Staff User Event
+        //Add New Admin User Event
         protected void Button1_Click(object sender, EventArgs e)
         {
             if (checkExistingUserID() == true)
@@ -72,8 +72,8 @@ namespace LilHotelier
             }
             catch (Exception ex)
             {
-                
-
+                UserExists.Visible = true;
+                UserExists.Text = "User ID Already Exists. Try Another!";
                 return false;
             }
 
@@ -213,10 +213,54 @@ namespace LilHotelier
         }
 
 
-        //Search Staff User Info
+        //Search Admin User Info
         protected void SearchUser_Click(object sender, EventArgs e)
         {
+            searchUserID();
+            
+        }
 
+        //user defined search function
+        void searchUserID()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strcon);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
+                SqlCommand cmd = new SqlCommand("select * from Admin_User_Table where UserName='" + AdminUserName.Text.Trim() + "';", con);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                if (dt.Rows.Count >= 1)
+                {
+                    FirstName.Text = dt.Rows[0][0].ToString();
+                    LastName.Text = dt.Rows[0][1].ToString();
+                    TxtAdminUserName.Text = dt.Rows[0][2].ToString();
+                    Password.Text = dt.Rows[0][3].ToString();
+                }
+
+                else
+                {
+                    Response.Write("<script> alert('User Does Not Exist.');</script>");
+                }
+
+                con.Close();
+
+                
+
+            }
+            catch (Exception ex)
+            {
+
+
+                
+            }
         }
     }
 }

@@ -17,6 +17,17 @@ namespace LilHotelier
         {
 
         }
+
+        void clearForm()
+        {
+            FirstName.Text = "";
+            LastName.Text = "";
+            ContactNumber.Text = "";
+            EmailId.Text = "";
+            Address.Text = "";
+        }
+
+
         //Add Customer Info Event
         protected void AddInfo_Click(object sender, EventArgs e)
         {
@@ -30,6 +41,7 @@ namespace LilHotelier
             {
                 addNewCustomer();
                 Response.Write("<script> alert('New Customer Added!');</script>");
+                CustomerInfoTable.DataBind();
             }
         }
 
@@ -95,10 +107,10 @@ namespace LilHotelier
                 cmd.Parameters.AddWithValue("@EmailID", EmailId.Text.Trim());
                 cmd.Parameters.AddWithValue("@Address", Address.Text.Trim());
 
-                
-
                 cmd.ExecuteNonQuery();
                 con.Close();
+
+                clearForm();
                
             }
             catch (Exception ex)
@@ -114,17 +126,141 @@ namespace LilHotelier
         //Update Customer Info Event
         protected void UpdateInfo_Click(object sender, EventArgs e)
         {
+            if (checkExistingContact() == true)
+            {
+                updateCustomerInfo();
+                Response.Write("<script> alert('Customer Info Updated Successfully!');</script>");
+                CustomerInfoTable.DataBind();
+            }
 
+            else
+            {
+                Response.Write("<script> alert('Customer not registered.');</script>");
+            }
         }
+        //user defined update function
+
+        void updateCustomerInfo()
+
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strcon);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
+                SqlCommand cmd = new SqlCommand("update Customer_Info_Table SET FirstName=@FirstName, LastName=@LastName, EmailID=@EmailID, Address=@Address WHERE ContactNumber='" + ContactNumber.Text.Trim() + "'", con);
+                cmd.Parameters.AddWithValue("@FirstName", FirstName.Text.Trim());
+                cmd.Parameters.AddWithValue("@LastName", LastName.Text.Trim());
+                cmd.Parameters.AddWithValue("@EmailID", EmailId.Text.Trim());
+                cmd.Parameters.AddWithValue("@Address", Address.Text.Trim());
+
+
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+
+                clearForm();
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<scrpit>alert('" + ex.Message + "');</script>");
+            }
+        }
+
+
+
         //Delete Customer Info Event
         protected void DeleteInfo_Click(object sender, EventArgs e)
         {
+            if (checkExistingContact() == true)
+            {
+                deleteCustomer();
+                Response.Write("<script> alert('Customer Deleted Successfully!');</script>");
+                CustomerInfoTable.DataBind();
+            }
 
+            else
+            {
+                Response.Write("<script> alert('Customer not registered.');</script>");
+            }
         }
+        //user defined delete funtion
+        void deleteCustomer()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strcon);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
+                SqlCommand cmd = new SqlCommand("DELETE from Customer_Info_Table WHERE ContactNumber='" + ContactNumber.Text.Trim() + "'", con);
+
+                cmd.ExecuteNonQuery();
+                con.Close();
+
+
+
+                clearForm();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         // Search Customer Event
         protected void SearchContact_Click(object sender, EventArgs e)
         {
+            searchContact();
+        }
+        //user defined search function
+        void searchContact()
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strcon);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
 
+                SqlCommand cmd = new SqlCommand("select * from Customer_Info_Table where ContactNumber='" + SearchContactNumber.Text.Trim() + "';", con);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                if (dt.Rows.Count >= 1)
+                {
+                    FirstName.Text = dt.Rows[0][0].ToString();
+                    LastName.Text = dt.Rows[0][1].ToString();
+                    ContactNumber.Text = dt.Rows[0][2].ToString();
+                    EmailId.Text = dt.Rows[0][3].ToString();
+                    Address.Text = dt.Rows[0][4].ToString();
+                }
+
+                else
+                {
+                    Response.Write("<script> alert('User Does Not Exist.');</script>");
+                }
+
+                con.Close();
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+
+
+            }
         }
     }
 }

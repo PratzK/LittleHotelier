@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LilHot.Master" AutoEventWireup="true" CodeBehind="AddStaffUserPage.aspx.cs" Inherits="LilHotelier.WebForm5" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <script>
+        $(document).ready(function () {
+            $("#<%=UserInfoTable.ClientID%>").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable();
+        });
+     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
@@ -99,12 +104,12 @@
                             </div>
                             <div class="col col-md-4 mx-auto">
                                 <div class="form-group">
-                                    <asp:Button CssClass="form-control btn btn-success" ID="UpdateInfo" runat="server" Text="Update" />
+                                    <asp:Button CssClass="form-control btn btn-success" ID="UpdateInfo" runat="server" Text="Update" OnClick="UpdateInfo_Click" />
                                 </div>
                             </div>
                             <div class="col col-md-4 mx-auto">
                                 <div class="form-group">
-                                    <asp:Button CssClass="form-control btn btn-danger" ID="DeleteInfo" runat="server" Text="Delete" />
+                                    <asp:Button CssClass="form-control btn btn-danger" ID="DeleteInfo" runat="server" Text="Delete" OnClick="DeleteInfo_Click" />
                                 </div>
                             </div>
                         </div>
@@ -123,8 +128,16 @@
                         <hr /> 
                         <!--Grid View-->
                         <div class="row">
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:LittleHotelierDBConnectionString %>" SelectCommand="SELECT * FROM [User_Login_Table]" ></asp:SqlDataSource>
                             <div class="col">
-                                <asp:GridView class="table table-striped table-bordered" ID="UserInfoTable" runat="server"></asp:GridView>
+                                <asp:GridView class="table table-striped table-bordered" ID="UserInfoTable" runat="server" AutoGenerateColumns="False" DataKeyNames="UserID" DataSourceID="SqlDataSource1">
+                                    <Columns>
+                                        <asp:BoundField DataField="FirstName" HeaderText="First Name" SortExpression="FirstName" />
+                                        <asp:BoundField DataField="LastName" HeaderText="Last Name" SortExpression="LastName" />
+                                        <asp:BoundField DataField="UserID" HeaderText="User ID" ReadOnly="True" SortExpression="UserID" />
+                                        <asp:BoundField DataField="Password" HeaderText="Password" SortExpression="Password" />
+                                    </Columns>
+                                </asp:GridView>
                             </div>
                         </div>
                     </div>

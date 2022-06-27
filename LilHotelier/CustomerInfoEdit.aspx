@@ -1,5 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LilHot.Master" AutoEventWireup="true" CodeBehind="CustomerInfoEdit.aspx.cs" Inherits="LilHotelier.AdminCustomerInfoEdit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <script>
+        $(document).ready(function () {
+            $("#<%=CustomerInfoTable.ClientID%>").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable();
+        });
+     </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
@@ -117,8 +123,17 @@
                         <hr /> 
                         <!--Grid View-->
                         <div class="row">
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:LittleHotelierDBConnectionString %>" SelectCommand="SELECT * FROM [Customer_Info_Table]"></asp:SqlDataSource>
                             <div class="col">
-                                <asp:GridView class="table table-striped table-bordered" ID="CustomerInfoTable" runat="server"></asp:GridView>
+                                <asp:GridView class="table table-striped table-bordered" ID="CustomerInfoTable" runat="server" AutoGenerateColumns="False" DataKeyNames="ContactNumber" DataSourceID="SqlDataSource1">
+                                    <Columns>
+                                        <asp:BoundField DataField="FirstName" HeaderText="First Name" SortExpression="FirstName" />
+                                        <asp:BoundField DataField="LastName" HeaderText="Last Name" SortExpression="LastName" />
+                                        <asp:BoundField DataField="ContactNumber" HeaderText="Contact Number" ReadOnly="True" SortExpression="ContactNumber" />
+                                        <asp:BoundField DataField="EmailID" HeaderText="Email ID" SortExpression="EmailID" />
+                                        <asp:BoundField DataField="Address" HeaderText="Address" SortExpression="Address" />
+                                    </Columns>
+                                </asp:GridView>
                             </div>
                         </div>
                     </div>
