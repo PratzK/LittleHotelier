@@ -15,15 +15,6 @@ namespace LilHotelier
     {
 
         /// <summary>
-        /// CustomerName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CustomerName;
-
-        /// <summary>
         /// ContactNo control.
         /// </summary>
         /// <remarks>
@@ -31,6 +22,24 @@ namespace LilHotelier
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ContactNo;
+
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+
+        /// <summary>
+        /// CustomerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CustomerName;
 
         /// <summary>
         /// CheckInDate control.
@@ -42,13 +51,13 @@ namespace LilHotelier
         protected global::System.Web.UI.WebControls.TextBox CheckInDate;
 
         /// <summary>
-        /// TCheckOutDate control.
+        /// CheckOutDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TCheckOutDate;
+        protected global::System.Web.UI.WebControls.TextBox CheckOutDate;
 
         /// <summary>
         /// RoomType control.

@@ -20,16 +20,23 @@
                         <div class="row">
                             <div class="col col-md-6 mx-auto">
                                 <div class="form-group">
-                                    <label style="font-weight:500">Customer Name</label>
-                                    <asp:TextBox ID="CustomerName" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <label style="font-weight:500">Contact Number</label>
+                                    <div class="input-group">
+                                        
+                                        <asp:TextBox ID="ContactNo" CssClass="form-control" TextMode="Phone" runat="server"></asp:TextBox>
+                                        <asp:Button CssClass="btn btn-primary" ID="Button1" runat="server" Text="Go" OnClick="Button1_Click" />
+                                
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="col col-md-6 mx-auto">
                                 <div class="form-group">
-                                    <label style="font-weight:500">Contact Number</label>
-                                    <asp:TextBox ID="ContactNo" CssClass="form-control" TextMode="Phone" runat="server"></asp:TextBox>
+                                    <label style="font-weight:500">Customer Name</label>
+                                    <asp:TextBox ID="CustomerName" ReadOnly="true" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                             </div>
+                            
                         </div>
                         <br />
                         <!-- Date Details -->
@@ -43,7 +50,7 @@
                             <div class="col col-md-6 mx-auto">
                                 <label style="font-weight:500">Check-out Date</label>
                                 <div class="form-group">
-                                    <asp:TextBox ID="TCheckOutDate" CssClass="form-control" TextMode="Date" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="CheckOutDate" CssClass="form-control" TextMode="Date" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +91,7 @@
                          <br />
                         <div class="row">
                             <div class="col col-md-6 mx-auto ">
-                                <asp:Button CssClass="btn btn-success btn-block" ID="SaveReservation" runat="server" Text="Save Reservation" />
+                                <asp:Button CssClass="btn btn-success btn-block" ID="SaveReservation" runat="server" Text="Save Reservation" OnClick="SaveReservation_Click" />
                             </div>
                         </div>
                         <br />
